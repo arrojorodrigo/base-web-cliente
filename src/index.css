@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --color-blockbuster-blue: #001a5b;
+  --color-blockbuster-yellow: #ffcc00;
+  --font-sans: 'Inter', sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 font-sans;
+  }
+}
+
+@layer components {
+
+  /* Utility classes inspired by 90s Blockbuster */
+  .btn-primary {
+    @apply bg-blockbuster-yellow text-blockbuster-blue font-bold py-2 px-4 rounded shadow-md hover:bg-yellow-400 transition-colors duration-200;
+  }
+
+  .glass-header {
+    @apply bg-blockbuster-blue/95 backdrop-blur-md shadow-lg border-b border-white/20;
+  }
+}
