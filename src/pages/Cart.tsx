@@ -25,10 +25,12 @@ export const Cart = () => {
                     {/* Cart Items List */}
                     <div className="lg:w-2/3 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                         {items.length === 0 ? (
-                            <div className="text-center py-16 flex flex-col items-center">
-                                <Film className="w-16 h-16 text-gray-300 mb-4" />
-                                <h2 className="text-2xl font-bold text-gray-500 mb-2">Tu carrito está vacío</h2>
-                                <p className="text-gray-400 mb-6">Aún no has seleccionado ninguna película para llevar a casa.</p>
+                            <div className="text-center py-16 flex flex-col items-center bg-gray-50/50 rounded-lg border-2 border-dashed border-gray-200">
+                                <div className="bg-gray-100 p-6 rounded-full mb-6 shadow-inner">
+                                    <Film className="w-16 h-16 text-gray-400" />
+                                </div>
+                                <h2 className="text-2xl font-black text-gray-700 mb-2 uppercase tracking-wide">Tu carrito está vacío</h2>
+                                <p className="text-gray-500 mb-8 max-w-sm font-medium">Aún no has seleccionado ninguna película para llevar a casa. ¡El fin de semana te espera!</p>
                                 <Link to="/catalog" className="btn-primary text-lg px-8">Explorar Catálogo</Link>
                             </div>
                         ) : (
@@ -68,7 +70,7 @@ export const Cart = () => {
 
                                 <button
                                     onClick={handleCheckout}
-                                    className="w-full bg-blockbuster-yellow text-blockbuster-blue hover:bg-yellow-400 font-bold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors border-2 border-blockbuster-yellow text-lg uppercase shadow-[0_4px_14px_0_rgba(255,204,0,0.39)] hover:shadow-[0_6px_20px_rgba(255,204,0,0.23)]"
+                                    className="btn-primary w-full py-4 flex items-center justify-center gap-2 mt-2"
                                 >
                                     <CreditCard className="w-5 h-5 fill-current" />
                                     Alquilar Ahora

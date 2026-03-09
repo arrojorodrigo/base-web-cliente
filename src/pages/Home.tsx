@@ -22,17 +22,20 @@ export const Home = () => {
                     <div className="inline-block bg-blockbuster-yellow text-blockbuster-blue font-black px-4 py-1 mb-6 transform -skew-x-12 uppercase text-sm tracking-widest shadow-[4px_4px_0px_white]">
                         Nuevos Ingresos
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-black text-white leading-tight tracking-tighter mb-6">
+                    <h1 className="text-shadow-retro text-5xl md:text-7xl font-black text-white leading-tight tracking-tighter mb-6">
                         LA MAGIA DEL <br /> <span className="text-blockbuster-yellow">CINE EN TU CASA</span>
                     </h1>
                     <p className="text-xl text-blue-100 mb-8 max-w-xl font-medium leading-relaxed">
-                        Alquila los mejores títulos en VHS y DVD. Desde estrenos exclusivos hasta clásicos que debes ver de nuevo.
+                        Alquila los mejores títulos en VHS y DVD. Desde estrenos exclusivos hasta clásicos que debes ver de nuevo, sin recargos sorpresa.
                     </p>
-                    <div className="flex gap-4">
-                        <Link to="/catalog" className="bg-blockbuster-yellow text-blockbuster-blue font-bold px-8 py-4 uppercase tracking-wider shadow-[4px_4px_0px_white] hover:translate-y-1 hover:shadow-[2px_2px_0px_white] transition-all flex items-center gap-2">
+                    <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                        <Link to="/catalog" className="btn-primary bg-white text-blockbuster-blue hover:text-white hover:bg-blockbuster-blue w-full sm:w-auto text-center flex items-center justify-center gap-2">
                             <Play className="w-5 h-5 fill-current" />
                             Ver Catálogo
                         </Link>
+                        <button onClick={() => alert('¡Próximamente Membresía VIP!')} className="btn-primary w-full sm:w-auto text-center">
+                            Únete al Club
+                        </button>
                     </div>
                 </div>
             </section>
@@ -64,7 +67,7 @@ export const Home = () => {
                     <p className="text-lg md:text-xl text-blockbuster-blue font-bold mb-6">
                         Alquila 3 películas y la 4ta va por cuenta de la casa. Solo válido devolviendo las cintas rebobinadas.
                     </p>
-                    <Link to="/catalog" className="inline-block border-4 border-blockbuster-blue text-blockbuster-blue bg-white font-black px-8 py-3 uppercase tracking-wider hover:bg-blockbuster-blue hover:text-white transition-colors">
+                    <Link to="/catalog" className="btn-primary inline-block text-lg">
                         Aprovechar Promo
                     </Link>
                 </div>

@@ -1,16 +1,16 @@
-import { useState } from 'react';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { MovieCard } from '../components/MovieCard';
-import { MOVIES_DB } from '../data/movies';
+import { useMovies } from '../hooks/useMovies';
 
 export const Catalog = () => {
-    const [searchTerm, setSearchTerm] = useState('');
-
-    // Basic filter
-    const filteredMovies = MOVIES_DB.filter(m =>
-        m.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        m.genre.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const {
+        searchTerm,
+        setSearchTerm,
+        activeCategory,
+        setActiveCategory,
+        filteredMovies,
+        allCategories
+    } = useMovies();
 
     return (
         <div className="bg-gray-50 min-h-screen py-8">
@@ -42,11 +42,18 @@ export const Catalog = () => {
                         <SlidersHorizontal className="w-5 h-5 text-blockbuster-blue" />
                         <span className="uppercase text-sm">Categorías</span>
                     </div>
-                    <button className="px-4 py-1.5 rounded-full bg-blockbuster-blue text-white text-sm font-bold whitespace-nowrap">Todas</button>
-                    <button className="px-4 py-1.5 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 text-sm font-bold whitespace-nowrap transition-colors">Acción</button>
-                    <button className="px-4 py-1.5 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 text-sm font-bold whitespace-nowrap transition-colors">Ciencia Ficción</button>
-                    <button className="px-4 py-1.5 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 text-sm font-bold whitespace-nowrap transition-colors">Infantil</button>
-                    <button className="px-4 py-1.5 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 text-sm font-bold whitespace-nowrap transition-colors">Drama</button>
+                    {allCategories.map(category => (
+                        <button
+                            key={category}
+                            onClick={() => setActiveCategory(category)}
+                            className={`px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition-colors ${activeCategory === category
+                                    ? 'bg-blockbuster-blue text-white'
+                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                }`}
+                        >
+                            {category}
+                        </button>
+                    ))}
                 </div>
 
                 {/* Grid */}

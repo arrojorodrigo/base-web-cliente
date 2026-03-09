@@ -1,4 +1,13 @@
-export const MOVIES_DB = [
+export interface Movie {
+    id: string;
+    title: string;
+    year: number;
+    genre: string;
+    price: number;
+    image: string;
+}
+
+export const MOVIES_DB: Movie[] = [
     {
         id: 'm1',
         title: 'Matrix',

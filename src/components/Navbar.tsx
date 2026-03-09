@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Film, LogIn, LogOut, X } from 'lucide-react';
+import { ShoppingCart, Film, LogIn, LogOut, Menu } from 'lucide-react';
 import { useCartStore } from '../store/useCartStore';
 import { useUserStore } from '../store/useUserStore';
+import { LoginModal } from './LoginModal';
 
 export const Navbar = () => {
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-    const [loginEmail, setLoginEmail] = useState('');
-    const [loginPassword, setLoginPassword] = useState('');
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const cartCount = useCartStore((state) => state.getCartCount());
     const { user, login, logout } = useUserStore();
 
-    const handleLoginSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        login('ArrojoWebsFan99'); // Dummy login value as requested
-        setIsLoginModalOpen(false);
-        // Here we could add a toast if we build a Toast Context, but sticking to simplicity
-        alert('¡Éxito! Hola ArrojoWebsFan99');
+    const handleLogin = (username: string) => {
+        login(username);
     };
 
     return (
@@ -29,10 +25,16 @@ export const Navbar = () => {
                     <span>ARROJO<span className="text-white text-lg font-normal ml-1 tracking-normal">WEBS</span></span>
                 </Link>
 
-                {/* Links */}
+                {/* Links Desktop */}
                 <div className="hidden md:flex gap-6 font-semibold">
-                    <Link to="/" className="hover:text-blockbuster-yellow transition-colors">Inicio</Link>
-                    <Link to="/catalog" className="hover:text-blockbuster-yellow transition-colors">Catálogo</Link>
+                    <Link to="/" className="hover:text-blockbuster-yellow transition-colors relative group">
+                        Inicio
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blockbuster-yellow transition-all group-hover:w-full"></span>
+                    </Link>
+                    <Link to="/catalog" className="hover:text-blockbuster-yellow transition-colors relative group">
+                        Catálogo
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blockbuster-yellow transition-all group-hover:w-full"></span>
+                    </Link>
                 </div>
 
                 {/* Actions */}
@@ -48,7 +50,7 @@ export const Navbar = () => {
 
                     {user ? (
                         <div className="flex items-center gap-3 bg-white/10 px-3 py-1.5 rounded-full">
-                            <span className="text-sm font-medium">Hola, {user}</span>
+                            <span className="text-sm font-medium hidden sm:inline">Hola, {user}</span>
                             <button
                                 onClick={() => logout()}
                                 className="text-red-400 hover:text-red-300 transition-colors"
@@ -60,68 +62,37 @@ export const Navbar = () => {
                     ) : (
                         <button
                             onClick={() => setIsLoginModalOpen(true)}
-                            className="flex items-center gap-2 hover:text-blockbuster-yellow transition-colors font-medium"
+                            className="flex items-center gap-2 hover:text-blockbuster-yellow transition-colors font-medium border border-transparent hover:border-blockbuster-yellow px-3 py-1.5 rounded-full"
                         >
                             <LogIn className="w-5 h-5" />
                             <span className="hidden sm:inline">Ingresar</span>
                         </button>
                     )}
+
+                    {/* Mobile Menu Toggle */}
+                    <button
+                        className="md:hidden text-white hover:text-blockbuster-yellow transition-colors"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    >
+                        <Menu className="w-6 h-6" />
+                    </button>
                 </div>
             </nav>
 
-            {/* Login Modal */}
-            {isLoginModalOpen && (
-                <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div className="bg-white text-gray-900 rounded-xl shadow-2xl w-full max-w-md overflow-hidden relative animate-in fade-in zoom-in duration-200">
-                        {/* Modal Header */}
-                        <div className="bg-blockbuster-blue p-4 flex justify-between items-center text-white">
-                            <h2 className="text-xl font-bold flex items-center gap-2">
-                                <Film className="w-5 h-5 text-blockbuster-yellow" />
-                                Membresía
-                            </h2>
-                            <button onClick={() => setIsLoginModalOpen(false)} className="hover:text-blockbuster-yellow transition-colors">
-                                <X className="w-6 h-6" />
-                            </button>
-                        </div>
-
-                        {/* Modal Body */}
-                        <form onSubmit={handleLoginSubmit} className="p-6">
-                            <p className="text-sm text-gray-500 mb-6 font-medium">Ingresa para alquilar tus estrenos favoritos sin recargo por demora.</p>
-
-                            <div className="space-y-4">
-                                <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="email">Correo Electrónico</label>
-                                    <input
-                                        id="email"
-                                        type="email"
-                                        required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blockbuster-blue focus:border-blockbuster-blue outline-none transition-shadow"
-                                        placeholder="tu@email.com"
-                                        value={loginEmail}
-                                        onChange={(e) => setLoginEmail(e.target.value)}
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="password">Contraseña (PIN)</label>
-                                    <input
-                                        id="password"
-                                        type="password"
-                                        required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blockbuster-blue focus:border-blockbuster-blue outline-none transition-shadow"
-                                        placeholder="••••••••"
-                                        value={loginPassword}
-                                        onChange={(e) => setLoginPassword(e.target.value)}
-                                    />
-                                </div>
-
-                                <button type="submit" className="w-full btn-primary mt-6 text-lg">
-                                    Ingresar a mi cuenta
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+            {/* Mobile Menu Dropdown */}
+            {isMobileMenuOpen && (
+                <div className="md:hidden bg-blockbuster-blue border-t border-white/10 px-4 py-4 flex flex-col gap-4 animate-in slide-in-from-top-2">
+                    <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-blockbuster-yellow font-bold text-lg">Inicio</Link>
+                    <Link to="/catalog" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-blockbuster-yellow font-bold text-lg">Catálogo</Link>
                 </div>
             )}
+
+            {/* Externalized Login Modal */}
+            <LoginModal
+                isOpen={isLoginModalOpen}
+                onClose={() => setIsLoginModalOpen(false)}
+                onLogin={handleLogin}
+            />
         </>
     );
 };

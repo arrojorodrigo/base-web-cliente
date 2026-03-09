@@ -10,16 +10,34 @@
   body {
     @apply bg-gray-50 text-gray-900 font-sans;
   }
+  
+  /* Custom Webkit Scrollbar for that premium feel */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-blockbuster-blue/50 rounded-full border-2 border-transparent bg-clip-padding;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-blockbuster-blue/80;
+  }
 }
 
 @layer components {
 
-  /* Utility classes inspired by 90s Blockbuster */
+  /* Utility classes inspired by 90s Blockbuster ArrojoWebs */
   .btn-primary {
-    @apply bg-blockbuster-yellow text-blockbuster-blue font-bold py-2 px-4 rounded shadow-md hover:bg-yellow-400 transition-colors duration-200;
+    @apply bg-blockbuster-yellow text-blockbuster-blue font-black py-2.5 px-6 rounded shadow-[4px_4px_0px_var(--color-blockbuster-blue)] hover:translate-y-1 hover:shadow-[2px_2px_0px_var(--color-blockbuster-blue)] active:translate-y-2 active:shadow-none transition-all duration-200 uppercase tracking-widest text-sm sm:text-base;
   }
 
   .glass-header {
-    @apply bg-blockbuster-blue/95 backdrop-blur-md shadow-lg border-b border-white/20;
+    @apply bg-blockbuster-blue/95 backdrop-blur-md shadow-lg border-b-2 border-blockbuster-yellow/50;
+  }
+
+  .text-shadow-retro {
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
   }
 }
